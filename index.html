@@ -10,15 +10,17 @@
     />
     <style>
       :root {
-        --bg: #f7ecdc;
-        --bg-soft: #fbf3e8;
-        --espresso: #2f1d17;
-        --mocha: #6f4a3c;
-        --caramel: #d9a372;
-        --foam: #fff8ef;
-        --ink: #20140f;
-        --muted: #735d51;
-        --line: rgba(47, 29, 23, 0.16);
+        --bg: #fff8e1;
+        --bg-soft: #f5edd4;
+        --espresso: #3e2723;
+        --mocha: #8d6e63;
+        --caramel: #d4a574;
+        --foam: #ffffff;
+        --ink: #1b0d08;
+        --muted: #a08070;
+        --line: #e0ceb0;
+        --gold: #ffb300;
+        --green: #4caf50;
       }
 
       * {
@@ -30,9 +32,9 @@
         font-family: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(circle at 8% 10%, #ffd9b4 0%, transparent 32%),
-          radial-gradient(circle at 90% 15%, #f0c59a 0%, transparent 36%),
-          linear-gradient(160deg, #fff9f2 0%, var(--bg) 48%, #f1dfc8 100%);
+          radial-gradient(circle at 8% 10%, #ffe5c5 0%, transparent 32%),
+          radial-gradient(circle at 90% 15%, #f2cfac 0%, transparent 36%),
+          linear-gradient(160deg, #fffdf6 0%, var(--bg) 48%, var(--bg-soft) 100%);
         min-height: 100vh;
       }
 
@@ -89,8 +91,8 @@
         width: 8px;
         height: 8px;
         border-radius: 999px;
-        background: #4f8a62;
-        box-shadow: 0 0 0 6px rgba(79, 138, 98, 0.16);
+        background: var(--green);
+        box-shadow: 0 0 0 6px rgba(76, 175, 80, 0.18);
       }
 
       .hero {
@@ -140,7 +142,7 @@
       }
 
       .btn-primary {
-        background: linear-gradient(150deg, var(--espresso), #4a3028);
+        background: linear-gradient(150deg, var(--espresso), #5f3c35);
         color: var(--foam);
         box-shadow: 0 10px 20px rgba(35, 22, 18, 0.24);
       }
@@ -153,9 +155,9 @@
 
       .phone {
         position: relative;
-        border: 1px solid rgba(47, 29, 23, 0.2);
+        border: 1px solid var(--line);
         border-radius: 28px;
-        background: linear-gradient(180deg, #f6ebdd 0%, #f2dfca 100%);
+        background: linear-gradient(180deg, #f8f0dd 0%, #f5e7cf 100%);
         padding: 14px;
         overflow: hidden;
         min-height: 420px;
@@ -180,7 +182,7 @@
         border-radius: 18px;
         padding: 16px;
         background: #fdf7ef;
-        border: 1px solid rgba(47, 29, 23, 0.14);
+        border: 1px solid var(--line);
         height: 100%;
         display: grid;
         grid-template-rows: auto auto 1fr;
@@ -189,7 +191,7 @@
 
       .chip {
         display: inline-block;
-        border: 1px solid rgba(111, 74, 60, 0.24);
+        border: 1px solid var(--line);
         border-radius: 999px;
         padding: 5px 10px;
         font-size: 0.73rem;
@@ -201,7 +203,7 @@
       .metric {
         padding: 12px;
         border-radius: 13px;
-        border: 1px solid rgba(47, 29, 23, 0.12);
+        border: 1px solid var(--line);
         background: #fff;
       }
 
