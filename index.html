@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bean Hunt | Discover. Track. Share.</title>
+    <meta
+      name="description"
+      content="Discover top coffee drinks at local shops, track your coffee journey, and share favorites with Bean Hunt."
+    />
+    <style>
+      :root {
+        --espresso: #2b1b16;
+        --caramel: #d9a372;
+        --foam: #f6eee2;
+        --ink: #1e140f;
+        --muted: #6d5a50;
+        --leaf: #4d7a5b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 15% 10%, #ffe7c9 0%, transparent 40%),
+          radial-gradient(circle at 85% 20%, #f7d2ac 0%, transparent 38%),
+          linear-gradient(165deg, #fff7ef 0%, #f9e8d5 55%, #f3dcc2 100%);
+        min-height: 100vh;
+      }
+
+      .wrap {
+        width: min(1100px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 22px 0;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--espresso);
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: var(--caramel);
+        box-shadow: 0 0 0 8px rgba(217, 163, 114, 0.2);
+      }
+
+      .hero {
+        padding: 34px 0 24px;
+        display: grid;
+        gap: 26px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5.5vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        color: var(--espresso);
+        max-width: 11ch;
+      }
+
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 2.2vw, 1.2rem);
+        line-height: 1.55;
+        max-width: 58ch;
+      }
+
+      .cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        appearance: none;
+        border: 0;
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 180ms ease, opacity 180ms ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: var(--espresso);
+        color: var(--foam);
+      }
+
+      .btn-secondary {
+        background: rgba(43, 27, 22, 0.08);
+        color: var(--espresso);
+      }
+
+      .panel {
+        margin-top: 10px;
+        border: 1px solid rgba(43, 27, 22, 0.12);
+        background: rgba(255, 255, 255, 0.76);
+        backdrop-filter: blur(6px);
+        border-radius: 18px;
+        padding: 18px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        border-radius: 12px;
+        padding: 12px;
+        background: #fff;
+        border: 1px solid rgba(43, 27, 22, 0.1);
+      }
+
+      .card h3 {
+        margin: 0 0 6px;
+        font-size: 0.95rem;
+        color: var(--espresso);
+      }
+
+      .card p {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.45;
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .pill-status {
+        background: rgba(77, 122, 91, 0.15);
+        color: var(--leaf);
+      }
+
+      footer {
+        padding: 24px 0 34px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 850px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrap">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Bean Hunt</span>
+      </div>
+    </header>
+
+    <main class="wrap hero">
+      <span class="pill pill-status">Early access beta live</span>
+      <h1>Discover your next favorite coffee.</h1>
+      <p class="sub">
+        Bean Hunt helps you find great drinks at local coffee shops, track what you try, and share your favorites with the community.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="mailto:hello@beanhunt.app?subject=Bean%20Hunt%20Beta%20Access">Join the waitlist</a>
+        <a class="btn btn-secondary" href="https://api.beanhunt.app/v1/health">API status</a>
+      </div>
+
+      <section class="panel">
+        <div class="grid">
+          <article class="card">
+            <h3>Discover nearby picks</h3>
+            <p>Find top community-rated drinks by shop and location in seconds.</p>
+          </article>
+          <article class="card">
+            <h3>Track your coffee journal</h3>
+            <p>Log drinks, ratings, and notes with stats that evolve over time.</p>
+          </article>
+          <article class="card">
+            <h3>Share what is worth ordering</h3>
+            <p>Help other coffee lovers skip bad orders and find the best menu items.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      Bean Hunt. Discover. Track. Share.
+    </footer>
+  </body>
+</html>
