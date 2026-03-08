@@ -1,21 +1,33 @@
-# Bean Hunt Site
+# Bean Hunt Website
 
-Static marketing site for Bean Hunt, hosted on GitHub Pages.
+Public marketing site for Bean Hunt.
 
-## Domain Setup (Cloudflare + GitHub Pages)
+## Overview
 
-1. Push this repo to `main`.
-2. In GitHub repo settings:
-   - `Pages` -> `Build and deployment`
-   - `Source`: `Deploy from a branch`
-   - `Branch`: `main` + `/ (root)`
-3. In GitHub Pages custom domain, set `www.beanhunt.app`.
-4. In Cloudflare DNS add:
-   - `CNAME` `www` -> `<your-github-username>.github.io` (`DNS only` while validating)
-5. For apex routing:
-   - Add Cloudflare Redirect Rule: `beanhunt.app/*` -> `https://www.beanhunt.app/$1` (301).
+Bean Hunt helps coffee lovers discover great drinks, track coffee logs, and share recommendations.
+This repository hosts the static landing website.
 
-## Notes
+## Stack
 
-- `CNAME` file is included for GitHub Pages custom domain support.
-- `.nojekyll` is included so GitHub Pages serves files as-is.
+- Static HTML/CSS
+- GitHub Pages hosting
+- Custom domain: `www.beanhunt.app`
+
+## Project Structure
+
+- `index.html` - landing page
+- `CNAME` - custom domain for GitHub Pages
+- `.nojekyll` - disables Jekyll processing on GitHub Pages
+
+## Local Preview
+
+Open `index.html` in a browser, or run any static file server from this directory.
+
+## Deployment
+
+Deploys from the `main` branch via GitHub Pages.
+
+## Related Services
+
+- API: `https://api.beanhunt.app`
+- App repository (private): Bean Hunt mobile + backend
