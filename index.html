@@ -10,12 +10,15 @@
     />
     <style>
       :root {
-        --espresso: #2b1b16;
+        --bg: #f7ecdc;
+        --bg-soft: #fbf3e8;
+        --espresso: #2f1d17;
+        --mocha: #6f4a3c;
         --caramel: #d9a372;
-        --foam: #f6eee2;
-        --ink: #1e140f;
-        --muted: #6d5a50;
-        --leaf: #4d7a5b;
+        --foam: #fff8ef;
+        --ink: #20140f;
+        --muted: #735d51;
+        --line: rgba(47, 29, 23, 0.16);
       }
 
       * {
@@ -27,63 +30,96 @@
         font-family: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(circle at 15% 10%, #ffe7c9 0%, transparent 40%),
-          radial-gradient(circle at 85% 20%, #f7d2ac 0%, transparent 38%),
-          linear-gradient(165deg, #fff7ef 0%, #f9e8d5 55%, #f3dcc2 100%);
+          radial-gradient(circle at 8% 10%, #ffd9b4 0%, transparent 32%),
+          radial-gradient(circle at 90% 15%, #f0c59a 0%, transparent 36%),
+          linear-gradient(160deg, #fff9f2 0%, var(--bg) 48%, #f1dfc8 100%);
         min-height: 100vh;
       }
 
       .wrap {
-        width: min(1100px, calc(100% - 40px));
+        width: min(1120px, calc(100% - 42px));
         margin: 0 auto;
       }
 
       header {
-        padding: 22px 0;
+        padding: 22px 0 14px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
       }
 
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 11px;
         color: var(--espresso);
-        font-size: 1.1rem;
+        font-size: 1.08rem;
+        font-weight: 700;
+        letter-spacing: 0.015em;
+      }
+
+      .dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 999px;
+        background: var(--caramel);
+        box-shadow: 0 0 0 7px rgba(217, 163, 114, 0.24);
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--muted);
+        font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.02em;
       }
 
-      .dot {
-        width: 12px;
-        height: 12px;
+      .status::before {
+        content: "";
+        width: 8px;
+        height: 8px;
         border-radius: 999px;
-        background: var(--caramel);
-        box-shadow: 0 0 0 8px rgba(217, 163, 114, 0.2);
+        background: #4f8a62;
+        box-shadow: 0 0 0 6px rgba(79, 138, 98, 0.16);
       }
 
       .hero {
-        padding: 34px 0 24px;
+        padding: 24px 0 10px;
         display: grid;
-        gap: 26px;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 24px;
+        align-items: stretch;
       }
 
       h1 {
         margin: 0;
-        font-size: clamp(2rem, 5.5vw, 4rem);
-        line-height: 0.95;
+        font-size: clamp(2.2rem, 6vw, 4.2rem);
+        line-height: 0.92;
         letter-spacing: -0.02em;
         color: var(--espresso);
-        max-width: 11ch;
+        max-width: 11.5ch;
       }
 
       .sub {
-        margin: 0;
+        margin: 14px 0 0;
         color: var(--muted);
         font-size: clamp(1rem, 2.2vw, 1.2rem);
-        line-height: 1.55;
-        max-width: 58ch;
+        line-height: 1.58;
+        max-width: 56ch;
       }
 
       .cta {
+        margin-top: 24px;
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
@@ -96,35 +132,92 @@
         padding: 12px 18px;
         border-radius: 12px;
         font-weight: 700;
-        transition: transform 180ms ease, opacity 180ms ease;
+        transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
       }
 
       .btn:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
       }
 
       .btn-primary {
-        background: var(--espresso);
+        background: linear-gradient(150deg, var(--espresso), #4a3028);
         color: var(--foam);
+        box-shadow: 0 10px 20px rgba(35, 22, 18, 0.24);
       }
 
       .btn-secondary {
-        background: rgba(43, 27, 22, 0.08);
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.7);
         color: var(--espresso);
       }
 
-      .panel {
-        margin-top: 10px;
-        border: 1px solid rgba(43, 27, 22, 0.12);
-        background: rgba(255, 255, 255, 0.76);
-        backdrop-filter: blur(6px);
+      .phone {
+        position: relative;
+        border: 1px solid rgba(47, 29, 23, 0.2);
+        border-radius: 28px;
+        background: linear-gradient(180deg, #f6ebdd 0%, #f2dfca 100%);
+        padding: 14px;
+        overflow: hidden;
+        min-height: 420px;
+        box-shadow:
+          0 32px 46px rgba(36, 21, 16, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+      }
+
+      .phone::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 88% 14%, rgba(255, 255, 255, 0.48), transparent 36%),
+          radial-gradient(circle at 10% 72%, rgba(255, 255, 255, 0.38), transparent 35%);
+        pointer-events: none;
+      }
+
+      .screen {
+        position: relative;
+        z-index: 1;
         border-radius: 18px;
-        padding: 18px;
+        padding: 16px;
+        background: #fdf7ef;
+        border: 1px solid rgba(47, 29, 23, 0.14);
+        height: 100%;
         display: grid;
+        grid-template-rows: auto auto 1fr;
         gap: 12px;
       }
 
-      .grid {
+      .chip {
+        display: inline-block;
+        border: 1px solid rgba(111, 74, 60, 0.24);
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 0.73rem;
+        font-weight: 700;
+        color: var(--mocha);
+        background: #fff;
+      }
+
+      .metric {
+        padding: 12px;
+        border-radius: 13px;
+        border: 1px solid rgba(47, 29, 23, 0.12);
+        background: #fff;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.15rem;
+        color: var(--espresso);
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .feature-list {
+        margin-top: 18px;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
@@ -132,48 +225,65 @@
 
       .card {
         border-radius: 12px;
-        padding: 12px;
+        padding: 14px;
         background: #fff;
-        border: 1px solid rgba(43, 27, 22, 0.1);
+        border: 1px solid var(--line);
       }
 
       .card h3 {
-        margin: 0 0 6px;
-        font-size: 0.95rem;
+        margin: 0 0 8px;
+        font-size: 1rem;
         color: var(--espresso);
       }
 
       .card p {
         margin: 0;
-        font-size: 0.88rem;
-        line-height: 1.45;
+        font-size: 0.9rem;
+        line-height: 1.48;
         color: var(--muted);
       }
 
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 10px;
-        border-radius: 999px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
+      .panel {
+        margin-top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(6px);
+        padding: 15px;
       }
 
-      .pill-status {
-        background: rgba(77, 122, 91, 0.15);
-        color: var(--leaf);
+      .panel h2 {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--espresso);
+      }
+
+      .panel p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
       }
 
       footer {
-        padding: 24px 0 34px;
+        padding: 20px 0 34px;
         color: var(--muted);
         font-size: 0.9rem;
       }
 
-      @media (max-width: 850px) {
-        .grid {
+      @media (max-width: 960px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .phone {
+          min-height: 360px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .feature-list {
           grid-template-columns: 1fr;
         }
       }
@@ -181,43 +291,75 @@
   </head>
   <body>
     <header class="wrap">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Bean Hunt</span>
+      <div class="topbar">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Bean Hunt</span>
+        </div>
+        <div class="status">API live</div>
       </div>
     </header>
 
     <main class="wrap hero">
-      <span class="pill pill-status">Early access beta live</span>
-      <h1>Discover your next favorite coffee.</h1>
-      <p class="sub">
-        Bean Hunt helps you find great drinks at local coffee shops, track what you try, and share your favorites with the community.
-      </p>
-      <div class="cta">
-        <a class="btn btn-primary" href="mailto:hello@beanhunt.app?subject=Bean%20Hunt%20Beta%20Access">Join the waitlist</a>
-        <a class="btn btn-secondary" href="https://api.beanhunt.app/v1/health">API status</a>
-      </div>
-
-      <section class="panel">
-        <div class="grid">
-          <article class="card">
-            <h3>Discover nearby picks</h3>
-            <p>Find top community-rated drinks by shop and location in seconds.</p>
-          </article>
-          <article class="card">
-            <h3>Track your coffee journal</h3>
-            <p>Log drinks, ratings, and notes with stats that evolve over time.</p>
-          </article>
-          <article class="card">
-            <h3>Share what is worth ordering</h3>
-            <p>Help other coffee lovers skip bad orders and find the best menu items.</p>
-          </article>
+      <section>
+        <h1>Find what to order before you hit the counter.</h1>
+        <p class="sub">
+          Bean Hunt helps coffee lovers discover top-rated drinks at local shops, track every cup, and build a taste profile over time.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="mailto:hello@beanhunt.app?subject=Bean%20Hunt%20Interest">Get launch updates</a>
+          <a class="btn btn-secondary" href="https://api.beanhunt.app/v1/health">View API status</a>
         </div>
+        <section class="panel">
+          <h2>Cross-platform app with a live hosted API</h2>
+          <p>
+            The core stack is now running in production mode. Account flows, journal tracking, and saved drinks are persisted and testable.
+          </p>
+        </section>
       </section>
+
+      <aside class="phone" aria-label="Bean Hunt app preview">
+        <div class="screen">
+          <div class="chip">Trending near you</div>
+          <div class="metric">
+            <strong>Iced Canela Oat Latte</strong>
+            <span>Citrus Roast • 4.8 stars</span>
+          </div>
+          <div style="display: grid; gap: 10px; align-content: start;">
+            <div class="metric">
+              <strong>47 coffees logged</strong>
+              <span>Personal journal tracking</span>
+            </div>
+            <div class="metric">
+              <strong>12 shops saved</strong>
+              <span>Synced across devices</span>
+            </div>
+            <div class="metric">
+              <strong>Discover • Track • Share</strong>
+              <span>Built for real coffee habits</span>
+            </div>
+          </div>
+        </div>
+      </aside>
     </main>
 
+    <section class="wrap feature-list">
+      <article class="card">
+        <h3>Discover nearby picks</h3>
+        <p>Find community-rated drinks by shop and location with fast search and filtering.</p>
+      </article>
+      <article class="card">
+        <h3>Track your coffee journal</h3>
+        <p>Log drinks, ratings, notes, and edit entries with persistent account sync.</p>
+      </article>
+      <article class="card">
+        <h3>Share useful recommendations</h3>
+        <p>Help people order better and avoid bad drinks with practical review comments.</p>
+      </article>
+    </section>
+
     <footer class="wrap">
-      Bean Hunt. Discover. Track. Share.
+      Bean Hunt • Discover • Track • Share
     </footer>
   </body>
 </html>
