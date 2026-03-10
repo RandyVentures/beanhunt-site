@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bean Hunt | Verify Email</title>
+    <style>
+      :root {
+        --bg: #fff8e1;
+        --card: #ffffff;
+        --espresso: #3e2723;
+        --line: #e4d3b6;
+        --muted: #6d5a50;
+        --ok: #2e7d32;
+        --err: #c62828;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at 12% 10%, #ffe8c9 0%, transparent 38%),
+          radial-gradient(circle at 88% 16%, #f4d2b1 0%, transparent 42%),
+          var(--bg);
+        color: var(--espresso);
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+      .card {
+        width: min(460px, 100%);
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 16px 32px rgba(62, 39, 35, 0.16);
+      }
+      h1 { margin: 0 0 8px; font-family: Georgia, serif; font-size: 1.7rem; }
+      p { margin: 0 0 16px; color: var(--muted); line-height: 1.5; }
+      .msg { font-size: 0.95rem; min-height: 22px; }
+      .ok { color: var(--ok); }
+      .err { color: var(--err); }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Verify your email</h1>
+      <p>Confirming your Bean Hunt account now.</p>
+      <div id="message" class="msg">Verifying...</div>
+    </main>
+    <script>
+      const API_BASE = "https://api.beanhunt.app/v1";
+      const message = document.getElementById("message");
+      const token = new URLSearchParams(window.location.search).get("token");
+
+      function setMessage(text, kind) {
+        message.textContent = text || "";
+        message.className = `msg ${kind || ""}`;
+      }
+
+      async function run() {
+        if (!token) {
+          setMessage("This verification link is invalid or missing a token.", "err");
+          return;
+        }
+        try {
+          const response = await fetch(`${API_BASE}/auth/email-verification/confirm`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(payload?.detail || "Unable to verify email.");
+          }
+          setMessage("Email verified. You can return to the app.", "ok");
+        } catch (error) {
+          setMessage(error?.message || "Unable to verify email.", "err");
+        }
+      }
+
+      void run();
+    </script>
+  </body>
+</html>
