@@ -4,8 +4,8 @@ Public marketing site for Bean Hunt.
 
 ## Overview
 
-Bean Hunt helps coffee lovers discover great drinks, track coffee logs, and share recommendations.
-This repository hosts the static landing website.
+Bean Hunt is a coffee passport for iPhone: find great cafés, stamp every coffee you try, and build a record of the places worth going back to.
+This repository hosts the static landing website plus the legal and account pages the app links to.
 
 ## Stack
 
@@ -15,7 +15,11 @@ This repository hosts the static landing website.
 
 ## Project Structure
 
-- `index.html` - landing page
+- `index.html` - landing page (inline CSS, SEO meta, JSON-LD for the app and FAQ)
+- `assets/` - screenshots (cropped from the App Store set), app icon, and the Open Graph share image
+- `privacy/`, `terms/` - legal pages linked from the app and App Store listing (keep these URLs)
+- `auth/reset-password/`, `auth/verify-email/` - account flows linked from app emails (keep these URLs; `noindex`, not in the sitemap)
+- `robots.txt`, `sitemap.xml` - crawl rules and sitemap for Google Search Console
 - `CNAME` - custom domain for GitHub Pages
 - `.nojekyll` - disables Jekyll processing on GitHub Pages
 
