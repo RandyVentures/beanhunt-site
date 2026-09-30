@@ -37,7 +37,17 @@
     <meta name="twitter:image" content="https://www.beanhunt.app/assets/og-image.png" />
     <meta name="twitter:image:alt" content="Bean Hunt, your coffee passport, shown on two iPhone screens: a café map and a passport of stamps." />
 
-    <link rel="preload" as="image" href="/assets/discover-720.webp" imagesrcset="/assets/discover-360.webp 360w, /assets/discover-720.webp 720w" imagesizes="(max-width: 860px) 260px, 320px" />
+    <link rel="preload" as="image" href="/assets/intro/poster.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts for the animated intro only (canvas); loaded without blocking render. -->
+    <link
+      id="intro-fonts"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800;900&amp;family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&amp;display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
 
     <script type="application/ld+json">
       {
@@ -365,9 +375,20 @@
       .hero {
         display: grid;
         grid-template-columns: 1.1fr 0.9fr;
-        gap: 48px;
+        grid-template-areas: "top art" "bottom art";
+        column-gap: 48px;
         align-items: center;
-        padding: 64px 0 72px;
+        padding: 56px 0 72px;
+      }
+
+      .hero-top {
+        grid-area: top;
+        align-self: end;
+      }
+
+      .hero-bottom {
+        grid-area: bottom;
+        align-self: start;
       }
 
       .eyebrow {
@@ -435,7 +456,80 @@
       }
 
       .hero-art {
+        grid-area: art;
         position: relative;
+      }
+
+      /* Animated intro: a live canvas, not a video. Poster = the loop's first frame. */
+      .intro {
+        position: relative;
+        width: min(380px, calc((100svh - 150px) * 0.5625), 100%);
+        min-width: 260px;
+        aspect-ratio: 9 / 16;
+        margin-inline: auto;
+        border-radius: 34px;
+        overflow: hidden;
+        background: #16181c url("/assets/intro/poster.webp") center / cover no-repeat;
+        box-shadow: var(--shadow), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+        isolation: isolate;
+      }
+
+      .intro canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .intro-controls {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        display: flex;
+        gap: 8px;
+        opacity: 0;
+        transition: opacity 300ms ease;
+      }
+
+      .intro.is-live .intro-controls {
+        opacity: 1;
+      }
+
+      .intro-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 38px;
+        min-width: 38px;
+        justify-content: center;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        background: rgba(20, 12, 8, 0.62);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        color: #fbefe0;
+        font: 700 0.82rem/1 var(--sans);
+        cursor: pointer;
+      }
+
+      .intro-btn:hover {
+        background: rgba(20, 12, 8, 0.8);
+      }
+
+      .intro-btn:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      .intro-btn svg {
+        width: 18px;
+        height: 18px;
+        flex: none;
+      }
+
+      .intro-btn[data-icon-only] {
+        padding: 0;
+        width: 38px;
       }
 
       .hero-art::before {
@@ -691,7 +785,14 @@
         }
 
         .hero {
-          padding: 40px 0 56px;
+          grid-template-areas: "top" "art" "bottom";
+          row-gap: 28px;
+          padding: 32px 0 56px;
+        }
+
+        .intro {
+          width: min(300px, 78vw);
+          min-width: 0;
         }
 
         .phone {
@@ -739,9 +840,30 @@
 
     <main id="main">
       <section class="wrap hero" aria-labelledby="hero-title">
-        <div>
+        <div class="hero-top">
           <p class="eyebrow">Coffee passport for iPhone</p>
           <h1 id="hero-title">Find great cafés. Stamp every coffee.</h1>
+        </div>
+        <div class="hero-art">
+          <div class="intro" id="intro">
+            <canvas
+              width="540"
+              height="960"
+              role="img"
+              aria-label="Animated intro. Bean, a coffee bean character, says: stop drinking sad coffee. He sniffs out the best cafés near you on a map, shows hunts for laptop-friendly spots, hidden gems and cafés open right now, stamps a coffee in a couple of taps, earns badges, fills a passport with café stamps, and says Bean Hunt is free on the App Store."
+            ></canvas>
+            <div class="intro-controls">
+              <button class="intro-btn" type="button" id="intro-pause" data-icon-only aria-label="Pause animation">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+              </button>
+              <button class="intro-btn" type="button" id="intro-sound" aria-pressed="false" aria-label="Play with sound">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none" /><path d="m17 9 4 6M21 9l-4 6" /></svg>
+                <span>Sound</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bottom">
           <p class="lead">
             Bean Hunt is a coffee shop finder and coffee journal in one. Discover great cafés near you, stamp every
             coffee you try, and build a record of the places worth going back to.
@@ -758,19 +880,6 @@
             <a class="text-link" href="#hunt">See how it works ↓</a>
           </div>
           <p class="fine">Free to use · Optional one-time Premium · No subscription</p>
-        </div>
-        <div class="hero-art">
-          <div class="phone">
-            <img
-              src="/assets/discover-720.webp"
-              srcset="/assets/discover-360.webp 360w, /assets/discover-720.webp 720w"
-              sizes="(max-width: 860px) 260px, 320px"
-              width="720"
-              height="1565"
-              fetchpriority="high"
-              alt="Bean Hunt Discover screen: a map of San Francisco with stamped cafés marked, and hunts for top rated cafés, hidden gems, and places open right now."
-            />
-          </div>
         </div>
       </section>
 
@@ -1046,5 +1155,126 @@
         </nav>
       </div>
     </footer>
+    <script src="/assets/intro/bean-intro.js" defer></script>
+    <script>
+      // Runs the hero intro live on a canvas. Muted by default; "Sound" restarts it with Bean's voice.
+      addEventListener("DOMContentLoaded", () => {
+        const stage = document.getElementById("intro");
+        if (!stage || !window.BeanIntro) return;
+        const canvas = stage.querySelector("canvas");
+        const pauseBtn = document.getElementById("intro-pause");
+        const soundBtn = document.getElementById("intro-sound");
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const size = () => {
+          const w = Math.round(canvas.getBoundingClientRect().width * Math.min(devicePixelRatio || 1, 2));
+          if (w && canvas.width !== w) {
+            canvas.width = w;
+            canvas.height = Math.round((w * 16) / 9);
+            return true;
+          }
+          return false;
+        };
+        size();
+        const css = document.getElementById("intro-fonts");
+        const cssReady = new Promise((res) => {
+          if (css && css.media === "all") return res();
+          css ? css.addEventListener("load", res, { once: true }) : res();
+          setTimeout(res, 3000);
+        });
+        const audio = new Audio();
+        audio.preload = "none";
+        audio.loop = true;
+        let reel = null, playing = !reduce, visible = true, sound = false, t = reduce ? 13.9 : 0, t0 = null, raf = 0;
+
+        const frame = (now) => {
+          raf = 0;
+          if (sound && !audio.paused) t = audio.currentTime;
+          else {
+            if (t0 === null) t0 = now - t * 1000;
+            t = ((now - t0) / 1000) % reel.DUR;
+          }
+          reel.render(t);
+          if (playing && visible && !document.hidden) raf = requestAnimationFrame(frame);
+        };
+        const run = () => {
+          if (!reel || raf || !playing || !visible || document.hidden) return;
+          t0 = null;
+          raf = requestAnimationFrame(frame);
+        };
+        const halt = () => {
+          if (raf) cancelAnimationFrame(raf);
+          raf = 0;
+        };
+        const syncAudio = () => {
+          if (sound && playing && visible && !document.hidden) audio.play().catch(() => {});
+          else audio.pause();
+        };
+        const setPauseUi = () => {
+          pauseBtn.setAttribute("aria-label", playing ? "Pause animation" : "Play animation");
+          pauseBtn.innerHTML = playing
+            ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>'
+            : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.2-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" /></svg>';
+        };
+        const setSoundUi = () => {
+          soundBtn.setAttribute("aria-pressed", String(sound));
+          soundBtn.setAttribute("aria-label", sound ? "Turn sound off" : "Play with sound");
+          soundBtn.innerHTML = sound
+            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none" /><path d="m17 9 4 6M21 9l-4 6" /></svg><span>Sound</span>';
+          if (sound) soundBtn.setAttribute("data-icon-only", "");
+          else soundBtn.removeAttribute("data-icon-only");
+        };
+
+        pauseBtn.addEventListener("click", () => {
+          playing = !playing;
+          playing ? run() : halt();
+          syncAudio();
+          setPauseUi();
+        });
+        soundBtn.addEventListener("click", () => {
+          sound = !sound;
+          if (sound) {
+            if (!audio.src) audio.src = "/assets/intro/bean-intro.m4a";
+            audio.currentTime = 0;
+            t = 0;
+            t0 = null;
+            playing = true;
+            setPauseUi();
+            audio.play().then(run, () => {
+              sound = false;
+              setSoundUi();
+            });
+          } else {
+            audio.pause();
+            t0 = null;
+          }
+          setSoundUi();
+        });
+        new IntersectionObserver(([e]) => {
+          visible = e.isIntersecting;
+          visible ? run() : halt();
+          syncAudio();
+        }).observe(stage);
+        document.addEventListener("visibilitychange", () => {
+          document.hidden ? halt() : run();
+          syncAudio();
+        });
+        new ResizeObserver(() => {
+          if (size() && reel && !raf) reel.render(t);
+        }).observe(canvas);
+
+        cssReady.then(() => {
+          reel = BeanIntro.create(canvas, {
+            align: BeanIntro.ALIGN,
+            images: { icon: "/assets/intro/icon-320.webp", checkin: "/assets/check-in-720.webp" },
+          });
+          return reel.ready;
+        }).then(() => {
+          stage.classList.add("is-live");
+          setPauseUi();
+          playing ? run() : reel.render(t);
+        });
+      });
+    </script>
   </body>
 </html>

@@ -16,6 +16,7 @@ This repository hosts the static landing website plus the legal and account page
 ## Project Structure
 
 - `index.html` - landing page (inline CSS, SEO meta, JSON-LD for the app and FAQ)
+- `assets/intro/` - the hero's animated intro: a live canvas engine (`bean-intro.js`, generated), its audio track, icon and poster. Source and rebuild steps live in the app repo at `marketing/video/` (`export_site.py` writes this folder).
 - `assets/` - screenshots (cropped from the App Store set), app icon, and the Open Graph share image
 - `privacy/`, `terms/` - legal pages linked from the app and App Store listing (keep these URLs)
 - `auth/reset-password/`, `auth/verify-email/` - account flows linked from app emails (keep these URLs; `noindex`, not in the sitemap)
